@@ -8,5 +8,36 @@
 		<script src="js/picker.date.js"></script>
 		<script src="js/picker.time.js"></script>
         <script src="js/main.js"></script>
+        
+         <script>
+		 $(function(){
+			
+			$(".box").each(function(){
+				var boxid= $(this).attr("data-boxid");
+				
+				$.get( '/ajax/free',{box: boxid}, function(data) {
+			       if (data == 1){
+				       $(this).find(".panel").removeClass("panel-danger");
+				       $(this).find(".panel").addClass("panel-success");
+				       $(this).find(".panel-body p").text("Feel free to use me :)");
+			       } else if (data == 0){
+				       $(this).find(".panel").removeClass("panel-success");
+				       $(this).find(".panel").addClass("panel-danger");
+				       $(this).find(".panel-body p").text("Occupied");
+			       }
+			     }); 
+				
+				
+			});
+			
+			/*
+			var parameters = { box: 1 };
+		       $.get( '/ajax/free',parameters, function(data) {
+		       console.log(data);
+		     }); 
+		     */
+		 });
+		 </script>
+        
     </body>
 </html>

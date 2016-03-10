@@ -16,19 +16,90 @@
 				var boxid= $(this).attr("data-boxid");
 				
 				$.get( '/ajax/free',{box: boxid}, function(data) {
-			       if (data == 1){
-				       $(this).find(".panel").removeClass("panel-danger");
-				       $(this).find(".panel").addClass("panel-success");
-				       $(this).find(".panel-body p").text("Feel free to use me :)");
-			       } else if (data == 0){
-				       $(this).find(".panel").removeClass("panel-success");
-				       $(this).find(".panel").addClass("panel-danger");
-				       $(this).find(".panel-body p").text("Occupied");
-			       }
+			      $('.box[data-boxid="'+boxid+'"]').html(data);
+			      var time = new Date($('.box[data-boxid="'+boxid+'"] .countdown').attr("data-when"));
+			      $('.box[data-boxid="'+boxid+'"] .countdown').countdown(time, function(event) {
+					    $(this).text(
+					       event.strftime('%M minutes %S seconds')
+					    );
+				  	});
 			     }); 
 				
 				
 			});
+			
+			setInterval(function(){ 
+				$(".box").each(function(){
+					var boxid= $(this).attr("data-boxid");
+					
+					$.get( '/ajax/free',{box: boxid}, function(data) {
+				      $('.box[data-boxid="'+boxid+'"]').html(data);
+				      var time = new Date($('.box[data-boxid="'+boxid+'"] .countdown').attr("data-when"));
+				      $('.box[data-boxid="'+boxid+'"] .countdown').countdown(time, function(event) {
+						    $(this).text(
+						       event.strftime('%M minutes %S seconds')
+						    );
+					  	});
+				     }); 
+					
+					
+				});
+				
+			}, 120000);
+			
+			$(".glyphicon-chevron-down").on( "click", function() {
+				if ($(".historicalbox").is(":visible")){
+					$(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+					
+				} else {
+					$(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+				}
+				$(".historicalbox").fadeToggle();
+				
+			});
+			
+			
+			$(".freeat button").on( "click", function() {
+				
+				var date = $("input[name='datefree']").val();
+				var time = $("input[name='timefree']").val();
+				var box = $("select[name='boxfree']").val();
+				
+				$.get( '/ajax/availible',{date: date, time: time, box:box}, function(data) {
+					
+					var probability = data;
+					
+					var alertipe;
+					var alertmessage;
+					var alertchance = Math.round(probability*100);
+					
+					if (probability < 0.2){
+						alertipe = "danger";
+						alertmessage = "So crowded this times";
+					} else if (probability < 0.5){
+						alertipe = "warning";
+						alertmessage = "You can catch it";	
+					} else if (probability < 0.7){
+						alertipe = "info";
+						alertmessage = "Normally good";	
+					} else {
+						alertipe = "success";
+						alertmessage = "Best time to visit us";	
+					}
+					
+					
+					$(".resultfree").html('<div class="alert alert-dismissible alert-'+alertipe+'"><button type="button" class="close" data-dismiss="alert">×</button><strong>'+alertmessage+'...</strong> '+alertchance+'% chance according historical datas.</div>');
+					
+					$(".resultfree").fadeIn();
+					
+					
+				});
+				
+				
+			});
+			
+			
+			
 			
 			/*
 			var parameters = { box: 1 };

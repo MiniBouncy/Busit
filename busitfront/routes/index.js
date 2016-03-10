@@ -23,7 +23,16 @@ connection.end();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	
+
+	req.app.connection.query('SELECT id, boxname from boxes', function(err, rows, fields) {
+		
+		res.render('index', { boxes: rows });
+
+	});	
+	
+
+  
 });
 
 module.exports = router;

@@ -1,6 +1,5 @@
 <% include head %>
 
-
 	 <div class="container logo">
 		 <div class="col-md-12 text-center">
 			 <h1><i class="glyphicon glyphicon-time"></i> Free4wash</h1>
@@ -9,68 +8,15 @@
 
 
 <div class="container actual">
+	
+	<% for(var i=0; i<boxes.length; i++) {%>
+		<div class="col-md-4 box" data-boxid="<%= boxes[i]["id"] %>">
+			<img src="img/default.gif" alt="default" width="120" height="120" /><br>
+			<h2>Loading...</h2>	 
+	    </div>
+	   
+	<% } %>
 	 
-	 <div class="col-md-4 box" data-boxid="1">
-	 	<div class="panel panel-success">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Manual Box 1</h3>
-	        </div>
-	        <div class="panel-body">
-	          <p>
-		          Feel free to use me :)
-	          </p>
-	          
-	          <div class="persons">
-		          <div class="icons">
-			          <div class="glyphicon glyphicon-ok"></div>
-		          </div>
-		          0 persons in queue
-	          </div>
-	        </div>
-    	</div>	 
-     </div>
-     
-	 <div class="col-md-4 box" data-boxid="2">
-		 <div class="panel panel-danger">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Manual Box 2</h3>
-	        </div>
-	        <div class="panel-body">
-	          <p>
-	          	Will be free in <span class="countdown1"></span>
-	          </p>
-	          <div class="persons">
-		          <div class="icons">
-			          <div class="glyphicon glyphicon-user"></div>
-			          <div class="glyphicon glyphicon-user"></div>
-			          <div class="glyphicon glyphicon-user"></div>
-		          </div>
-		          3 persons in queue
-	          </div>
-	        </div>
-    	</div>	
-	 </div>
-	 
-	 <div class="col-md-4 box" data-boxid="3">
-		 <div class="panel panel-danger">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Automatic</h3>
-	        </div>
-	        <div class="panel-body">
-		       <p>
-	           Will be free in <span class="countdown2"></span>
-		       </p>
-	           <div class="persons">
-		          <div class="icons">
-			          <div class="glyphicon glyphicon-user"></div>
-			          <div class="glyphicon glyphicon-user"></div>
-			          <div class="glyphicon glyphicon-user"></div>
-		          </div>
-		          3 persons in queue
-	          </div>
-	        </div>
-    	</div>	
-	 </div>
 	 
  </div>
  
@@ -79,109 +25,117 @@
 		 <h2><i class="glyphicon glyphicon-question-sign"></i> Will it be free at?</h2>
 	 </div>
 	 <div class="col-md-12">
-		 <div class="form-inline filter">
+		 <div class="form-inline filter freeat">
 			  <div class="form-group">
-			    <label for="exampleInputName2">Date</label>
-			    <input type="text" class="form-control datepicker" id="datefree" placeholder="7. Monday">
+			    <label>Date</label>
+			    <input type="text" name="datefree" class="form-control datepicker" placeholder="7. Monday">
 			  </div>
 			  <div class="form-group">
-			    <label for="exampleInputName2">Time</label>
-			    <input type="text" class="form-control timepicker" id="timefree" placeholder="8:00">
+			    <label>Time</label>
+			    <input type="text" name="timefree" class="form-control timepicker" placeholder="8:00">
+			  </div>
+			  <div class="form-group">
+				<label for="exampleInputName2">Box</label>
+			    <select name="boxfree" class="form-control">
+				    <% for(var i=0; i<boxes.length; i++) {%>
+						<option value="<%= boxes[i]["id"] %>"><%= boxes[i]["boxname"] %></option>
+					   
+					<% } %>
+			    </select>
 			  </div>
 			  <button type="submit" class="btn btn-default">Tell me!</button>
 		</div>
+	 </div>
+	 <div class="col-md-12 resultfree">	  
 	 </div>
  </div>
  
  <div class="container">
 	 <div class="col-md-12 text-center">
-		 <h2><i class="glyphicon glyphicon-calendar"></i> Historical data</h2>
+		 <h2><i class="glyphicon glyphicon-calendar"></i> Historical data <i class="glyphicon glyphicon-chevron-down"></i></h2>
 	 </div>
-	 <div class="col-md-12">
-		 <div class="form-inline filter">
-			  <div class="form-group">
-			    <label for="exampleInputName2">Day</label>
-			    <input type="text" class="form-control" id="exampleInputName2" placeholder="7. Monday">
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail2">Month</label>
-			    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="March">
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail2">Year</label>
-			    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="2016">
-			  </div>
-			  <button type="submit" class="btn btn-default">Show me!</button>
-		</div>
-	 </div>
-	 <div class="col-md-4">
-		 	<div class="panel panel-default">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Manual Box 1</h3>
-	        </div>
-	        <div class="panel-body">
-	          	<table class="table table-striped">
-				<tr>
-					<td>Total customers:</td><td>20</td>
-				</tr>
-				<tr>
-					<td>Total occupied time:</td><td>2 hours 30 minutes</td>
-				</tr>
-				<tr>
-					<td>Best time to visit us:</td><td>8:00 - 10:15</td>
-				</tr>
-				<tr>
-					<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
-				</tr> 
-				</table>
-	          </div>
-    	</div>	 
-	 </div>
-	 <div class="col-md-4">
-		 	<div class="panel panel-default">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Manual Box 1</h3>
-	        </div>
-	        <div class="panel-body">
-	          	<table class="table table-striped">
-				<tr>
-					<td>Total customers:</td><td>20</td>
-				</tr>
-				<tr>
-					<td>Total occupied time:</td><td>2 hours 30 minutes</td>
-				</tr>
-				<tr>
-					<td>Best time to visit us:</td><td>8:00 - 10:15</td>
-				</tr>
-				<tr>
-					<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
-				</tr> 
-				</table>
-	          </div>
-    	</div>	 
-	 </div>
-	 <div class="col-md-4">
-		 	<div class="panel panel-default">
-	        <div class="panel-heading">
-	          <h3 class="panel-title">Automatic Box</h3>
-	        </div>
-	        <div class="panel-body">
-	          	<table class="table table-striped">
-				<tr>
-					<td>Total customers:</td><td>20</td>
-				</tr>
-				<tr>
-					<td>Total occupied time:</td><td>2 hours 30 minutes</td>
-				</tr>
-				<tr>
-					<td>Best time to visit us:</td><td>8:00 - 10:15</td>
-				</tr>
-				<tr>
-					<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
-				</tr> 
-				</table>
-	          </div>
-    	</div>	 
+	 
+	 <div class="historicalbox">
+	 
+		 <div class="col-md-12">
+			 <div class="form-inline filter">
+				  <div class="form-group">
+				    <label for="exampleInputName2">Day</label>
+				    <input type="text" class="form-control hdate" id="exampleInputName2" placeholder="7. Monday 2016">
+				  </div>
+				  <button type="submit" class="btn btn-default">Show me!</button>
+			</div>
+		 </div>
+		 <div class="col-md-4">
+			 	<div class="panel panel-default">
+		        <div class="panel-heading">
+		          <h3 class="panel-title">Manual Box 1</h3>
+		        </div>
+		        <div class="panel-body">
+		          	<table class="table table-striped">
+					<tr>
+						<td>Total customers:</td><td>20</td>
+					</tr>
+					<tr>
+						<td>Total occupied time:</td><td>2 hours 30 minutes</td>
+					</tr>
+					<tr>
+						<td>Best time to visit us:</td><td>8:00 - 10:15</td>
+					</tr>
+					<tr>
+						<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
+					</tr> 
+					</table>
+		          </div>
+	    	</div>	 
+		 </div>
+		 <div class="col-md-4">
+			 	<div class="panel panel-default">
+		        <div class="panel-heading">
+		          <h3 class="panel-title">Manual Box 1</h3>
+		        </div>
+		        <div class="panel-body">
+		          	<table class="table table-striped">
+					<tr>
+						<td>Total customers:</td><td>20</td>
+					</tr>
+					<tr>
+						<td>Total occupied time:</td><td>2 hours 30 minutes</td>
+					</tr>
+					<tr>
+						<td>Best time to visit us:</td><td>8:00 - 10:15</td>
+					</tr>
+					<tr>
+						<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
+					</tr> 
+					</table>
+		          </div>
+	    	</div>	 
+		 </div>
+		 <div class="col-md-4">
+			 	<div class="panel panel-default">
+		        <div class="panel-heading">
+		          <h3 class="panel-title">Automatic Box</h3>
+		        </div>
+		        <div class="panel-body">
+		          	<table class="table table-striped">
+					<tr>
+						<td>Total customers:</td><td>20</td>
+					</tr>
+					<tr>
+						<td>Total occupied time:</td><td>2 hours 30 minutes</td>
+					</tr>
+					<tr>
+						<td>Best time to visit us:</td><td>8:00 - 10:15</td>
+					</tr>
+					<tr>
+						<td>Worst time to visit us:</td><td>12:00 - 13:25</td>
+					</tr> 
+					</table>
+		          </div>
+	    	</div>	 
+		 </div>
+		 
 	 </div>
  </div>
  

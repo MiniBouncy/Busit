@@ -18,3 +18,15 @@
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+.historicalbox {
+	display: none;
+}
+
+.glyphicon-chevron-down, .glyphicon-chevron-up{
+	cursor: pointer;
+}
+
+.resultfree {
+	display: none;
+}
